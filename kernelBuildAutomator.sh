@@ -1,8 +1,26 @@
 #!/bin/bash
+#
+#                      ::::::
+#                    :+:  :+:
+#                   +:+   +:+
+#                  +#++:++#++:::::::
+#                 +#+     +#+     :+:
+#               ###       ###+:++#""
+#                         +#+
+#                         #+#
+#                         ###
+#
+#__author__ = "Alex Pujols"
+#__copyright__ = "TBD"
+#__credits__ = ["Alex Pujols"]
+#__license__ = "GPL"
+#__version__ = "1.0"
+#__maintainer__ = "Alex Pujols"
+#__email__ = "alex.pujols@gmail.com"
+#__status__ = "Prototype"
+#
 #: Title	:	upgrade_script
 #: Date		:	7-19-2019
-#: Author	:	"Alex Pujols" <alex.pujols@gmail.com>
-#: Version	:	4.0
 #: Description  :	Upgrade script for Slackware custom kernels
 #: Options	:	None
 #: Notes	:	Requires Grub2 rather than default eLILO; Must be run as root
@@ -46,10 +64,10 @@ make modules &&
 
 # Begin conditional test for vmlinuz image
 printf "Copying kernel image to boot directory and archiv... \n"
-if [ -f /boot/vmlinuz-${kernel_name} ]; #Checking to see if original file exists 
+if [ -f /boot/vmlinuz-${kernel_name} ]; #Checking to see if original file exists
         then
                 printf "Old vlinuz kernel image found, moving to backup \n"
-                mv /boot/vmlinuz-${kernel_name} /boot/vmlinuz-${kernel_name}.old 
+                mv /boot/vmlinuz-${kernel_name} /boot/vmlinuz-${kernel_name}.old
         else
                 printf "Old vmlinuz config kernel image not found, copying new \n"
 fi
@@ -58,10 +76,10 @@ cp arch/x86/boot/bzImage /boot/vmlinuz-${kernel_name}
 
 # Begin conditional test for System.map image
 printf "Copying System.map and nameing appropriately... \n"
-if [ -f /boot/System.map-${kernel_name} ]; #Checking to see if original file exists 
+if [ -f /boot/System.map-${kernel_name} ]; #Checking to see if original file exists
         then
                 printf "Old System.map kernel image found, moving to backup \n"
-                mv /boot/System.map-${kernel_name} /boot/System.map-${kernel_name}.old 
+                mv /boot/System.map-${kernel_name} /boot/System.map-${kernel_name}.old
         else
                 printf "Old System.map kernel image not found, copying new \n"
 fi
@@ -71,7 +89,7 @@ cp System.map /boot/System.map-${kernel_name}
 
 # Begin conditional test for config image
 printf "Copying config from src root to boot and naming... \n"
-if [ -f /boot/config-${kernel_name} ]; #Checking to see if original file exists 
+if [ -f /boot/config-${kernel_name} ]; #Checking to see if original file exists
 	then
 		printf "Old config kernel image found, moving to backup \n"
 		mv /boot/config-${kernel_name} /boot/config-${kernel_name}.old
@@ -98,4 +116,3 @@ make modules_install &&
 # Requires Grub2
 printf "Building new grub config... \n"
 /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
-
